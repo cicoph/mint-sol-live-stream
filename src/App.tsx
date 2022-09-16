@@ -14,7 +14,7 @@ interface MintDetail {
   name?: string;
   symbol: string;
   collection?: string;
-  creator: string;
+  creator?: string;
 }
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
       name: name || 'noname',
       symbol: symbol,
       collection: collection?.name || 'no collection name',
-      creator: properties.creators[0].address,
+      creator: properties.creators[0]?.address,
       description: description || 'no descriptio'
     }
     setMints( ( prevMints: any ) => [ details, ...prevMints ] ); 
@@ -110,7 +110,7 @@ function App() {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={`https://www.launchmynft.io/profile/${mint.creator}`} >
+                <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={`https://www.launchmynft.io/profile/${mint.creator || ''}`} >
                   <Icon name='linkify' />
                   LMNFT
                 </a>
