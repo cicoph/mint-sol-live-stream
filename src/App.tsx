@@ -10,10 +10,10 @@ interface MintDetail {
   tokenAddress: string;
   signature: string;
   description: string;
-  image: string;
-  name: string;
+  image?: string;
+  name?: string;
   symbol: string;
-  collection: string;
+  collection?: string;
   creator: string;
 }
 
@@ -26,7 +26,7 @@ function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
   const [ txs, setTxs ] = useState( [] );
 
-  const solanaConnection = new Connection( HTTP_ENDPOINT, {
+  const solanaConnection = new Connection( clusterApiUrl( 'mainnet-beta' ), {
     wsEndpoint: WSS_ENDPOINT,
   });
 
@@ -39,12 +39,12 @@ function App() {
     let details: MintDetail = {
       tokenAddress: mint,
       signature: tx,
-      image: image,
-      name: name,
+      image: image || 'https://via.placeholder.com/150/',
+      name: name || 'noname',
       symbol: symbol,
-      collection: collection?.name,
+      collection: collection?.name || 'no collection name',
       creator: properties.creators[0].address,
-      description: description
+      description: description || 'no descriptio'
     }
     setMints( ( prevMints: any ) => [ details, ...prevMints ] ); 
   }
@@ -89,13 +89,13 @@ function App() {
       <Transition.Group
           as={Card}
           duration={200}
-          divided
+          divided='true'
           size='huge'
         >
           {mints.map( ( mint, index ) => (
             <Card 
               key={index}
-              title="Vai su solana ecplorer"
+              title="Vai su solana explorer"
               rel="noreferrer" target="_blank"
               href={`https://explorer.solana.com/tx/${mint.signature}`}
               >
