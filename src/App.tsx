@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
-import 'index.css';
+import './index.css';
 
 interface MintDetail {
   tokenAddress: string;
