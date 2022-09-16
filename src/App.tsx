@@ -24,7 +24,7 @@ function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
   const [ txs, setTxs ] = useState( [] );
 
-  const solanaConnection = new Connection( clusterApiUrl('mainnet-beta'), {
+  const solanaConnection = new Connection( HTTP_ENDPOINT, {
     wsEndpoint: WSS_ENDPOINT,
     commitment: 'confirmed'
   });
@@ -34,6 +34,7 @@ function App() {
   const handlerMinted = async ( mint: string, tx: string ) => {
     const metadata: Metadata = await getMintedMetadata( mint )
     const { image, name, symbol, collection, description, properties } = await fetch( metadata.data?.data.uri ).then( response => response.json() )
+    console.log( properties.creators )
     let details: MintDetail = {
       tokenAddress: mint,
       signature: `https://explorer.solana.com/tx/${tx}`,
@@ -83,7 +84,7 @@ function App() {
   }, [txs]);
 
   return (
-    <div className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
+    <div className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64 px-4">
       <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
         <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
           <div className="flex items-center justify-between mb-4">
