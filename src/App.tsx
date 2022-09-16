@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
-import { Icon, Image, Card, Transition } from 'semantic-ui-react'
-
-import 'semantic-ui-css/semantic.min.css'
+import 'index.css';
 
 interface MintDetail {
   tokenAddress: string;
@@ -26,7 +24,7 @@ function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
   const [ txs, setTxs ] = useState( [] );
 
-  const solanaConnection = new Connection( clusterApiUrl( 'mainnet-beta' ), {
+  const solanaConnection = new Connection( HTTP_ENDPOINT, {
     wsEndpoint: WSS_ENDPOINT,
   });
 
@@ -34,17 +32,16 @@ function App() {
 
   const handlerMinted = async ( mint: string, tx: string ) => {
     const metadata: Metadata = await getMintedMetadata( mint )
-    const response = await fetch( metadata.data?.data.uri )
-    const { image, name, symbol, collection, description, properties } = await response.json();
+    const { image, name, symbol, collection, description, properties } = await fetch( metadata.data?.data.uri ).then( response => response.json() )
     let details: MintDetail = {
       tokenAddress: mint,
-      signature: tx,
+      signature: `https://explorer.solana.com/tx/${tx}`,
       image: image || 'https://via.placeholder.com/150/',
       name: name || 'noname',
       symbol: symbol,
       collection: collection?.name || 'no collection name',
-      creator: properties.creators[0]?.address,
-      description: description || 'no descriptio'
+      creator: properties.creators.lenght > 0 ? `https://www.launchmynft.io/profile/${properties.creators[0].address}` : '#',
+      description: description || 'no description'
     }
     setMints( ( prevMints: any ) => [ details, ...prevMints ] ); 
   }
@@ -85,40 +82,40 @@ function App() {
   }, [txs]);
 
   return (
-    <div className="container text ui">
-      <Transition.Group
-          as={Card}
-          duration={200}
-          divided='true'
-          size='huge'
-        >
-          {mints.map( ( mint, index ) => (
-            <Card 
-              key={index}
-              title="Vai su solana explorer"
-              rel="noreferrer" target="_blank"
-              href={`https://explorer.solana.com/tx/${mint.signature}`}
-              >
-              <Image src={mint.image} wrapped alt={mint.collection} ui={false} />
-              <Card.Content>
-                <Card.Header>{mint.name}</Card.Header>
-                <Card.Meta>
-                  <span className='symbols'>{mint.symbol}</span>
-                </Card.Meta>
-                <Card.Description>
-                  {mint.description}
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={`https://www.launchmynft.io/profile/${mint.creator || ''}`} >
-                  <Icon name='linkify' />
-                  LMNFT
-                </a>
-              </Card.Content>
-            </Card>
+    <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
+      <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-bold leading-none text-gray-900">Latest Mint</h3>
+        </div>
+        <div className="flow-root">
+          <ul role="list" className="divide-y divide-gray-200">
+          {mints.map( ( mint ) => (
+            <li key={mint.tokenAddress} className="py-3 sm:py-4">
+              <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0">
+                  <img className="h-8 w-8 rounded-full" src={mint.image} alt={mint.collection} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900 truncate">
+                    {mint.symbol} - {mint.name}
+                  </p>
+                  <p className="text-sm text-gray-500 truncate">
+                    {mint.description}
+                  </p>
+                </div>
+                <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                  <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.creator} >
+                    LMNFT
+                  </a>
+                </div>
+              </div>
+            </li>
           ))}
-      </Transition.Group>
+          </ul>
+        </div>
+      </div>
     </div>
+    
   );
 }
 
