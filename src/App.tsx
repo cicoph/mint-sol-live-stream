@@ -24,7 +24,7 @@ function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
   const [ txs, setTxs ] = useState( [] );
 
-  const solanaConnection = new Connection( HTTP_ENDPOINT, {
+  const solanaConnection = new Connection( clusterApiUrl('mainnet-beta'), {
     wsEndpoint: WSS_ENDPOINT,
     commitment: 'confirmed'
   });
