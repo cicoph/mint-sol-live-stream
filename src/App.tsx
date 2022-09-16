@@ -17,8 +17,8 @@ interface MintDetail {
 
 function App() {
 
-  const WSS_ENDPOINT = 'wss://ws-nd-777-071-689.p2pify.com/4a5e64a684014a6fdd923d5d7dde3970';
-  const HTTP_ENDPOINT = 'https://ws-nd-777-071-689.p2pify.com/4a5e64a684014a6fdd923d5d7dde3970';
+  const WSS_ENDPOINT = 'wss://ws-nd-845-886-528.p2pify.com/47063e02dff99a453ff6b863a7b137ce';
+  const HTTP_ENDPOINT = 'https://nd-845-886-528.p2pify.com/47063e02dff99a453ff6b863a7b137ce';
   const ACCOUNT_TO_WATCH = 'ArAA6CZC123yMJLUe4uisBEgvfuw2WEvex9iFmFCYiXv';
 
   const [ mints, setMints ] = useState<MintDetail[]>([]);
@@ -26,6 +26,7 @@ function App() {
 
   const solanaConnection = new Connection( HTTP_ENDPOINT, {
     wsEndpoint: WSS_ENDPOINT,
+    commitment: 'confirmed'
   });
 
   const handlerTxs = ( logs: any ) => setTxs( ( prevLogs: any ) => logs.err === null && !prevLogs.includes( logs.signature ) ? [ logs.signature, ...prevLogs ] : prevLogs );
