@@ -41,7 +41,7 @@ function App() {
       name: name || 'noname',
       symbol: symbol,
       collection: collection?.name || 'no collection name',
-      creator: properties.creators?.lenght > 0 ? `https://www.launchmynft.io/profile/${properties.creators[0].address}` : '#',
+      creator: properties.creators[0]?.address ? `https://www.launchmynft.io/profile/${properties.creators[0].address}` : '#',
       description: description || 'no description'
     }
     setMints( ( prevMints: any ) => [ details, ...prevMints ] ); 
@@ -83,39 +83,42 @@ function App() {
   }, [txs]);
 
   return (
-    <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
-      <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-bold leading-none text-gray-900">Latest Mint</h3>
-        </div>
-        <div className="flow-root">
-          <ul role="list" className="divide-y divide-gray-200">
-          {mints.map( ( mint ) => (
-            <li key={mint.tokenAddress} className="py-3 sm:py-4">
-              <div className="flex items-center space-x-4">
-                <div className="flex-shrink-0">
-                  <img className="h-8 w-8 rounded-full" src={mint.image} alt={mint.collection} />
+    <div className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
+      <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
+        <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-bold leading-none text-gray-900">Latest Mint</h3>
+          </div>
+          <div className="flow-root">
+            <ul role="list" className="divide-y divide-gray-200">
+            {mints.map( ( mint ) => (
+              <li key={mint.tokenAddress} className="py-3 sm:py-4">
+                <div className="flex items-center space-x-4">
+                  <div className="flex-shrink-0">
+                    <img className="h-8 w-8 rounded-full" src={mint.image} alt={mint.collection} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 truncate">
+                      {mint.symbol} - {mint.name}
+                    </p>
+                    <p className="text-sm text-gray-500 truncate">
+                      {mint.description}
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                    <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.creator} >
+                      LMNFT
+                    </a>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    {mint.symbol} - {mint.name}
-                  </p>
-                  <p className="text-sm text-gray-500 truncate">
-                    {mint.description}
-                  </p>
-                </div>
-                <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                  <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.creator} >
-                    LMNFT
-                  </a>
-                </div>
-              </div>
-            </li>
-          ))}
-          </ul>
+              </li>
+            ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
+    
     
   );
 }
