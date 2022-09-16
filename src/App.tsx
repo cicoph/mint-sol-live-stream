@@ -41,7 +41,7 @@ function App() {
       name: name || 'noname',
       symbol: symbol,
       collection: collection?.name || 'no collection name',
-      creator: properties.creators.lenght > 0 ? `https://www.launchmynft.io/profile/${properties.creators[0].address}` : '#',
+      creator: properties.creators?.lenght > 0 ? `https://www.launchmynft.io/profile/${properties.creators[0].address}` : '#',
       description: description || 'no description'
     }
     setMints( ( prevMints: any ) => [ details, ...prevMints ] ); 
