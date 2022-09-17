@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-
-import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
-import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
+// import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
+import socketIOClient from "socket.io-client";
 import './index.css';
+
+const ENDPOINT = "https://powerful-citadel-18328.herokuapp.com/";
 
 interface MintDetail {
   tokenAddress: string;
@@ -14,74 +15,17 @@ interface MintDetail {
   collection?: string;
   creator?: string;
 }
+const socket = socketIOClient(ENDPOINT);
 
 function App() {
-
-  const WSS_ENDPOINT = 'wss://ws-nd-845-886-528.p2pify.com/47063e02dff99a453ff6b863a7b137ce';
-  const HTTP_ENDPOINT = 'https://nd-845-886-528.p2pify.com/47063e02dff99a453ff6b863a7b137ce';
-  const ACCOUNT_TO_WATCH = 'ArAA6CZC123yMJLUe4uisBEgvfuw2WEvex9iFmFCYiXv';
-
   const [ mints, setMints ] = useState<MintDetail[]>([]);
-  const [ txs, setTxs ] = useState( [] );
-
-  const solanaConnection = new Connection( HTTP_ENDPOINT, {
-    wsEndpoint: WSS_ENDPOINT,
-    commitment: 'confirmed'
-  });
-
-  const handlerTxs = ( logs: any ) => setTxs( ( prevLogs: any ) => logs.err === null && !prevLogs.includes( logs.signature ) ? [ logs.signature, ...prevLogs ] : prevLogs );
-
-  const handlerMinted = async ( mint: string, tx: string ) => {
-    const metadata: Metadata = await getMintedMetadata( mint )
-    const { image, name, symbol, collection, description, properties } = await fetch( metadata.data?.data.uri ).then( response => response.json() )
-    console.log( properties.creators )
-    let details: MintDetail = {
-      tokenAddress: mint,
-      signature: `https://explorer.solana.com/tx/${tx}`,
-      image: image || 'https://via.placeholder.com/150/',
-      name: name || 'noname',
-      symbol: symbol,
-      collection: collection?.name || 'no collection name',
-      creator: properties.creators[0]?.address ? `https://www.launchmynft.io/profile/${properties.creators[0].address}` : '#',
-      description: description || 'no description'
-    }
-    setMints( ( prevMints: any ) => [ details, ...prevMints ] ); 
+  const handlerMinted = ( details: MintDetail ) => {
+    console.log(details.tokenAddress);
+    setMints( prevMinted => [details, ...prevMinted ] )  
   }
-
-
-  const getMintedMetadata = async ( mint: string ) => {
-    let mintPubAddress = new PublicKey( mint );
-    let tokenMetaPubkey = await Metadata.getPDA( mintPubAddress );
-    let metaData = await Metadata.load<Metadata>( solanaConnection, tokenMetaPubkey );
-    return metaData;
-  };
- 
-
   useEffect( () => {
-    const accountLMNT: PublicKey = new PublicKey( ACCOUNT_TO_WATCH );
-    const subScriptionLogs: number = solanaConnection.onLogs(
-      accountLMNT,
-      ( logs: any ) => handlerTxs( logs ),
-      "finalized"
-    );    
-    return () => {
-      solanaConnection.removeAccountChangeListener(subScriptionLogs);
-    }
+    socket.on("nft:emitted", details => handlerMinted( details ) );
   }, []);
-
-  useEffect( () => {  
-    if( txs.length === 0 ) return
-    const getTransactionDetails = async () => {
-      await solanaConnection.getParsedTransaction( txs[0] ).then( ( tx ) => {
-        if( tx?.meta?.logMessages?.includes('Program log: Instruction: InitializeMint') ) {
-          tx?.meta?.postTokenBalances?.forEach( ( token: any ) => {
-            if( token.mint ) handlerMinted( token.mint, txs[0] )
-          })
-        }
-      });
-    }
-    getTransactionDetails();
-  }, [txs]);
 
   return (
     <div className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64 px-4">
