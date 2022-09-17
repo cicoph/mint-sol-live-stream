@@ -6,7 +6,7 @@ import moment from "moment";
 
 import './index.css';
 
-const ENDPOINT = "http://localhost:4001";//"https://powerful-citadel-18328.herokuapp.com/";
+const ENDPOINT = "https://powerful-citadel-18328.herokuapp.com/";
 
 interface MintDetail {
   blockTime: any;
