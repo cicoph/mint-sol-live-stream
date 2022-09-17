@@ -24,6 +24,7 @@ const socket = socketIOClient(ENDPOINT);
 function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
   const handlerMinted = ( details: MintDetail ) => {
+    console.log( details.blockTime )
     details.time = moment.unix( details.blockTime ).fromNow();
     setMints( prevMinted => [details, ...prevMinted ] )  
   }
