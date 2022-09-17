@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
+import Moment from 'react-moment';
 // import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import socketIOClient from "socket.io-client";
 import moment from "moment";
 
 import './index.css';
 
-const ENDPOINT = "https://powerful-citadel-18328.herokuapp.com/";
+const ENDPOINT = "http://localhost:4001";//"https://powerful-citadel-18328.herokuapp.com/";
 
 interface MintDetail {
-  blockTime: number;
+  blockTime: any;
+  // time: any;
   tokenAddress: string;
   signature: string;
   description: string;
@@ -17,7 +19,6 @@ interface MintDetail {
   symbol: string;
   collection?: string;
   creator?: string;
-  time: string;
 }
 const socket = socketIOClient(ENDPOINT);
 
@@ -25,7 +26,7 @@ function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
   const handlerMinted = ( details: MintDetail ) => {
     console.log( details.blockTime )
-    details.time = moment.unix( details.blockTime ).fromNow();
+    // details.time = moment.unix( details.blockTime );
     setMints( prevMinted => [details, ...prevMinted ] )  
   }
   useEffect( () => {
@@ -57,7 +58,7 @@ function App() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">
-                        {mint.symbol} - {mint.name} - {mint.time}
+                        {mint.symbol} - {mint.name} - <Moment interval={1000} fromNow>{moment.unix( mint.blockTime )}</Moment>
                       </p>
                       <p className="text-sm text-gray-500 truncate">
                         {mint.description}
