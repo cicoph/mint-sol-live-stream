@@ -9,7 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        'rampart': ["Rampart One", "cursive"],
+        'sans': ['Inter var', ...defaultTheme.fontFamily.sans]
       },
     },
   },

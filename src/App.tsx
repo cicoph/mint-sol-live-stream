@@ -10,7 +10,6 @@ const ENDPOINT = "https://powerful-citadel-18328.herokuapp.com/";
 
 interface MintDetail {
   blockTime: any;
-  // time: any;
   tokenAddress: string;
   signature: string;
   description: string;
@@ -42,9 +41,9 @@ function App() {
           </li>
         </ul>
       </nav>
-      <div className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64 px-4">
-        <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
-          <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+      <div className="content">
+        <div className="grid grid-cols-12 gap-6 mt-5">
+          <div className="col-span-12 md:col-span-6 bg-white shadow rounded-md p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold leading-none text-gray-900">Latest Mint</h3>
             </div>
@@ -78,9 +77,6 @@ function App() {
         </div>
       </div>
     </div>
-    
-    
-    
   );
 }
 

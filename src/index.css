@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
     --color-slate-50: 248 250 252;
     --color-slate-100: 241 245 249;
@@ -17,22 +18,22 @@ html {
     --tw-bg-opacity: 1;
     background-color: rgb(var(--color-slate-200) / var(--tw-bg-opacity));
 }
-nav.sidenav {
+nav.side-nav {
     width: 260px;
     z-index: 50;
     margin-top: -1rem;
     overflow-x: hidden;
-    padding: 8rem 1.25rem 4rem;
+    padding: 3rem 1.25rem 4rem;
 }
 .content {
     padding: 0 22px;
     position: relative;
-    margin-top: 0.25rem;
+    margin-top: 0rem;
     min-height: 100vh;
     min-width: 0px;
     flex: 1 1 0%;
     --tw-bg-opacity: 1;
     background-color: rgb(var(--color-slate-100) / var(--tw-bg-opacity));
-    padding-top: 5rem;
-    padding-bottom: 2.5rem;
+    padding-top:3rem;
+    padding-bottom: .5rem;
 }
