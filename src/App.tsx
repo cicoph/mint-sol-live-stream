@@ -59,10 +59,10 @@ function App() {
                         {mint.description}
                       </p>
                     </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                    <div className="flex flex-col items-center text-base font-semibold text-gray-900">
                       <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.creator} >
                         LMNFT
-                      </a>signature
+                      </a>
                       <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.signature} >
                         TX
                       </a>
