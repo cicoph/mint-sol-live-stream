@@ -43,7 +43,7 @@ function App() {
       </nav>
       <div className="content">
         <div className="grid grid-cols-12 gap-6 mt-5">
-          <div className="col-span-12 md:col-span-6 bg-white shadow rounded-md p-5">
+          <div className="col-span-12 md:col-span-4 bg-white shadow rounded-md p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold leading-none text-gray-900">Latest Mint</h3>
             </div>
