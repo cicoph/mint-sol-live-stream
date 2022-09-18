@@ -23,13 +23,9 @@ const socket = socketIOClient(ENDPOINT);
 
 function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
-  const handlerMinted = ( details: MintDetail ) => {
-    console.log( details.blockTime )
-    // details.time = moment.unix( details.blockTime );
-    setMints( prevMinted => [details, ...prevMinted ] )  
-  }
+  // const handlerMinted = ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] )  
   useEffect( () => {
-    socket.on("nft:emitted", details => handlerMinted( details ) );
+    socket.on("nft:emitted", ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] ) );
   }, []);
 
   return (
@@ -56,9 +52,9 @@ function App() {
                       <img className="h-8 w-8 rounded-full" src={mint.image} alt={mint.collection} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <a href={mint.tokenAddress} target="_blank" className="text-sm font-medium text-gray-900 truncate">
                         {mint.symbol} - {mint.name} - <Moment interval={1000} fromNow>{moment.unix( mint.blockTime )}</Moment>
-                      </p>
+                      </a>
                       <p className="text-sm text-gray-500 truncate">
                         {mint.description}
                       </p>
@@ -66,6 +62,9 @@ function App() {
                     <div className="inline-flex items-center text-base font-semibold text-gray-900">
                       <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.creator} >
                         LMNFT
+                      </a>signature
+                      <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.signature} >
+                        TX
                       </a>
                     </div>
                   </div>
