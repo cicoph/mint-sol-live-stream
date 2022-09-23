@@ -18,6 +18,7 @@ interface MintDetail {
   symbol: string;
   collection?: string;
   creator?: string;
+  platform?: string;
 }
 const socket = socketIOClient(ENDPOINT);
 
@@ -57,6 +58,9 @@ function App() {
                       </a>
                       <p className="text-sm text-gray-500 truncate">
                         {mint.description}
+                      </p>
+                      <p className="text-sm text-gray-500 truncate">
+                        {mint.platform}
                       </p>
                     </div>
                     <div className="flex flex-col items-center text-base font-semibold text-gray-900">
