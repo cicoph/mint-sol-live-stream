@@ -1,16 +1,16 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import Nft from './Nft';
 import moment from "moment";
 import Moment from 'react-moment';
 
 interface Props {
-    style: CSSProperties;
+    // style: CSSProperties;
     nft: Nft;
 }
  
-const NftCard: FunctionComponent<Props> = ({ nft, style }) => {
+const NftCard: FunctionComponent<Props> = ({ nft }) => {
   return (
-    <div className="py-3 sm:py-4" style={style}>
+    <div className="py-3 sm:py-4">
         <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
                 <a href={`https://explorer.solana.com/address/${nft.tokenAddress}`}>
