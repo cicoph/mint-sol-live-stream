@@ -12,29 +12,27 @@ interface MintDetail {
   blockTime: any;
   tokenAddress: string;
   signature: string;
-  description: string;
   image?: string;
   name?: string;
-  symbol: string;
-  collection?: string;
-  creator?: string;
-  platform?: string;
 }
 const socket = socketIOClient(ENDPOINT);
 
 function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
+  const [ paused, setPaused ] = useState<boolean>(false);
+
   // const handlerMinted = ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] )  
   useEffect( () => {
-    socket.on("nft:emitted", ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] ) );
-  }, []);
-
+    if( !paused )
+      socket.on("nft:Emitted", ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] ) );
+  }, [paused]);
+  
   return (
     <div className="flex overflow-hidden">
       <nav className="side-nav">
         <ul>
           <li>
-            <a href="javascript:;" className="side-menu">Mint Live</a>
+            <a href="/" className="side-menu">Mint Live</a>
           </li>
         </ul>
       </nav>
@@ -45,29 +43,20 @@ function App() {
               <h3 className="text-xl font-bold leading-none text-gray-900">Latest Minted</h3>
             </div>
             <div className="flow-root">
-              <ul role="list" className="divide-y divide-gray-200">
+              <ul role="list" className="divide-y divide-gray-200" onMouseOver={ () => setPaused(true) } onMouseLeave={ () => setPaused(false) }>
               {mints.map( ( mint ) => (
                 <li key={mint.tokenAddress} className="py-3 sm:py-4">
                   <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0">
-                      <img className="h-8 w-8 rounded-full" src={mint.image} alt={mint.collection} />
+                      <img className="h-8 w-8 rounded-full" src={mint.image} alt={mint.name} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <a href={mint.tokenAddress} target="_blank" className="text-sm font-medium text-gray-900 truncate">
-                        {mint.symbol} - {mint.name} - <Moment interval={1000} fromNow>{moment.unix( mint.blockTime )}</Moment>
+                      <a href={`https://explorer.solana.com/address/${mint.tokenAddress}`} target="_blank" className="text-sm font-medium text-gray-900 truncate">
+                        {mint.name} - <Moment interval={1000} fromNow>{moment.unix( mint.blockTime )}</Moment>
                       </a>
-                      <p className="text-sm text-gray-500 truncate">
-                        {mint.description}
-                      </p>
-                      <p className="text-sm text-gray-500 truncate">
-                        {mint.platform}
-                      </p>
                     </div>
                     <div className="flex flex-col items-center text-base font-semibold text-gray-900">
-                      <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.creator} >
-                        LMNFT
-                      </a>
-                      <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={mint.signature} >
+                      <a rel="noreferrer" target="_blank" title="Vai a LMNT" href={`https://explorer.solana.com/tx/${mint.signature}`}>
                         TX
                       </a>
                     </div>
@@ -82,4 +71,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
