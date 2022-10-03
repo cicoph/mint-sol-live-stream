@@ -41,7 +41,7 @@ const NftsList = () => {
                         className="divide-y divide-gray-200">
                         { ( { index, style } ) => {
                             const nft = nfts[index];
-                            return <NftCard key={ nft.tokenAddress } nft={ nft } style={style} />;
+                            return !nfts ? null : <NftCard key={ nft.tokenAddress } nft={ nft } style={style} />;
                         }}
                     </List>
                 </div>
