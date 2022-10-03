@@ -32,8 +32,6 @@ const NftsList = () => {
                 <NftCard key={ nft.tokenAddress } nft={ nft } />
             ))}
         </div>
-        //     )}
-        // </AutoSizer>
     );
 };
  
