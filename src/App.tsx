@@ -23,6 +23,7 @@ function App() {
 
   // const handlerMinted = ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] )  
   useEffect( () => {
+    console.log( paused )
     paused ? socket.off("nft:Emitted") : socket.on("nft:Emitted", ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] ) );
   }, [paused]);
   
