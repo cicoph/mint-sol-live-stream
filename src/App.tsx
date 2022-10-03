@@ -1,6 +1,7 @@
 import React from "react";
 // import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
-import NftsList from "./liveStream/NftsList"
+import NftsList from "./nft-list/NftsList";
+import Grid from "./grid/grid";
 import './index.css';
 
 function App() {  
@@ -14,7 +15,9 @@ function App() {
         </ul>
       </nav>
       <div className="content">
-        <NftsList />
+        <Grid title="Latest Mint">
+          <NftsList />
+        </Grid>
       </div>
     </div>
   );
