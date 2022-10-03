@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { FixedSizeList as List } from 'react-window';
+ 
 import socketIOClient from "socket.io-client";
 import NftCard from './NftCard';
 import Nft from './Nft';
@@ -9,10 +11,14 @@ const socket = socketIOClient(ENDPOINT);
 const NftsList = () => {
     const [ paused, setPaused ] = useState<boolean>(false);
     const [ nfts, setNfts ] = useState<Nft[]>([]);
+    const [ size, setSize ] = useState<number>(50);
     useEffect( () => {
         paused ? socket.off("nft:Emitted") : socket.on("nft:Emitted", ( nft: Nft ) => handlerMinted( nft ) );
     }, [paused]);
 
+    useEffect( () => {
+        setSize(nfts.length);
+    },[nfts]);
     const handlerMinted = ( nft: Nft ) => setNfts( prevNfts => [ nft, ...prevNfts ] );
     
     //if (!nfts) return null;
@@ -23,15 +29,21 @@ const NftsList = () => {
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-xl font-bold leading-none text-gray-900">Latest Minted</h3>
                 </div>
-                <div className="flow-root">
-                    <div
-                        className="divide-y divide-gray-200"
-                        onMouseOver={ () => setPaused(true) } 
-                        onMouseLeave={ () => setPaused(false) }>
-                        { nfts.map( ( nft: any ) => (
-                            <NftCard key={ nft.tokenAddress } nft={ nft } />
-                        ))}
-                    </div>
+                <div 
+                    className="flow-root"
+                    onMouseOver={ () => setPaused(true) } 
+                    onMouseLeave={ () => setPaused(false) }>
+                    <List 
+                        height={150}
+                        itemCount={size}
+                        itemSize={60}
+                        width={300}
+                        className="divide-y divide-gray-200">
+                        { ( { index, style } ) => {
+                            const nft = nfts[index];
+                            return <NftCard key={ nft.tokenAddress } nft={ nft } style={style} />;
+                        }}
+                    </List>
                 </div>
             </div>
         </div>
