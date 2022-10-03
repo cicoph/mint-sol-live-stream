@@ -1,6 +1,6 @@
 import React from "react";
 // import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
-import NftsList from "./nftMinted/NftsList"
+import NftsList from "./liveStream/NftsList"
 import './index.css';
 
 function App() {  

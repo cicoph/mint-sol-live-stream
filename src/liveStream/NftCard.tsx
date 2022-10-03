@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import Nfts from './Nfts';
+import Nft from './Nft';
 import moment from "moment";
 import Moment from 'react-moment';
 
 interface Props {
-  nft: Nfts;
+  nft: Nft;
 }
  
 const NftCard: FunctionComponent<Props> = ({ nft }) => {
