@@ -21,11 +21,11 @@ function App() {
   const [ mints, setMints ] = useState<MintDetail[]>([]);
   const [ paused, setPaused ] = useState<boolean>(false);
 
-  // const handlerMinted = ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] )  
   useEffect( () => {
-    console.log( paused )
-    paused ? socket.off("nft:Emitted") : socket.on("nft:Emitted", ( details: MintDetail ) => setMints( prevMinted => [details, ...prevMinted ] ) );
+    paused ? socket.off("nft:Emitted") : socket.on("nft:Emitted", ( minted: MintDetail ) => handlerMinted( minted ) );
   }, [paused]);
+
+  const handlerMinted = ( minted: MintDetail ) => setMints( prevMinted => [minted, ...prevMinted ] );
   
   return (
     <div className="flex overflow-hidden">
