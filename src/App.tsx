@@ -1,7 +1,7 @@
 import React from "react";
 // import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import NftsList from "./nft-list/NftsList";
-import Grid from "./grid/grid";
+import Grid from "./grid/Grid";
 import './index.css';
 
 function App() {  
