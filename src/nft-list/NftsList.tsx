@@ -3,25 +3,32 @@ import socketIOClient from 'socket.io-client';
 
 import NftCard from './utilis/NftCard';
 import Nft from './utilis/Nft';
-import dotenv from 'dotenv'
-dotenv.config()
 
-const { SOCKET_URL } = process.env // "https://powerful-citadel-18328.herokuapp.com/";
+const SOCKET_URL = process.env.SOCKET_URL || 'http://localhost:4001'
 const socket = socketIOClient( `${SOCKET_URL}` );
 
 const NftsList = () => {
     const [ paused, setPaused ] = useState<boolean>(false);
     const [ nfts, setNfts ] = useState<Nft[]>([]);
     // const [ size, setSize ] = useState<number>(50);
-    useEffect( () => {
-        paused ? socket.off("nft:Minted") : socket.on("nft:Minted", ( nft: Nft ) => handlerMinted( nft ) );
-    }, [paused]);
-    useEffect( () => {
-        socket.on("projects:Added", result => console.log( result ) )
-    },[]);
-    
-    const handlerMinted = ( nft: Nft ) => setNfts( prevNfts => [ nft, ...prevNfts ] );
 
+    // useEffect( () => {
+    //     const handlerMinted = ( nft: Nft ) => setNfts( prevNfts => [ nft, ...prevNfts ] );
+    //     paused ? socket.off('nft:New', handlerMinted) : socket.on('nft:New', ( nft: Nft ) => handlerMinted( nft ) );
+    //     // Otherwise you'll start getting errors when the component is unloaded
+    //     return () => {
+    //         socket.off('nft:New', handlerMinted)
+    //     }
+    // }, [paused]);
+    useEffect( () => {
+        const handlerMinted = ( nft: Nft ) => setNfts( prevNfts => [ nft, ...prevNfts ] );
+        console.log( paused )
+        paused ? socket.off('nft:New', handlerMinted) : socket.on('nft:New', handlerMinted);
+        return () => {
+            socket.off('nft:New', handlerMinted);
+        }
+    }, [ paused ] ); //
+    
     // useEffect( () => {
     //     setSize(nfts.length);
     // },[nfts]);

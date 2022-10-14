@@ -1,6 +1,6 @@
 interface Nft {
     blockTime: any;
-    tokenAddress: string;
+    address: string;
     signature: string;
     image?: string;
     name?: string;
