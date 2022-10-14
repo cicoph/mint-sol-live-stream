@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import socketIOClient from 'socket.io-client';
+import process from 'process';
 
 import NftCard from './utilis/NftCard';
 import Nft from './utilis/Nft';
