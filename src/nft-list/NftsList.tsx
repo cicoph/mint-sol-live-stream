@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import socketIOClient from 'socket.io-client';
-import process from 'process';
 
 import NftCard from './utilis/NftCard';
 import Nft from './utilis/Nft';
 
-const SOCKET_URL = process.env.SOCKET_URL || 'http://localhost:4001'
+const SOCKET_URL = process.env.REACT_APP_SOCKET_URL
+console.log( SOCKET_URL)
 const socket = socketIOClient( `${SOCKET_URL}` );
 
 const NftsList = () => {
