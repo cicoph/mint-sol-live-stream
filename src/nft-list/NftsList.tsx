@@ -12,15 +12,6 @@ const NftsList = () => {
     const [ paused, setPaused ] = useState<boolean>(false);
     const [ nfts, setNfts ] = useState<Nft[]>([]);
     // const [ size, setSize ] = useState<number>(50);
-
-    // useEffect( () => {
-    //     const handlerMinted = ( nft: Nft ) => setNfts( prevNfts => [ nft, ...prevNfts ] );
-    //     paused ? socket.off('nft:New', handlerMinted) : socket.on('nft:New', ( nft: Nft ) => handlerMinted( nft ) );
-    //     // Otherwise you'll start getting errors when the component is unloaded
-    //     return () => {
-    //         socket.off('nft:New', handlerMinted)
-    //     }
-    // }, [paused]);
     useEffect( () => {
         const handlerMinted = ( nft: Nft ) => setNfts( prevNfts => [ nft, ...prevNfts ] );
         console.log( paused )
