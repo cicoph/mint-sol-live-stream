@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import socketIOClient from 'socket.io-client';
 
-import NftCard from './utilis/NftCard';
-import Nft from './utilis/Nft';
+import NftCard from './utils/NftCard';
+import Nft from './utils/Nft';
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL
 console.log( SOCKET_URL)

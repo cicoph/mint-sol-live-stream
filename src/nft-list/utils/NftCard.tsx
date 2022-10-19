@@ -19,7 +19,7 @@ const NftCard: FunctionComponent<Props> = ({ nft }) => {
             </div>
             <div className="flex-1 min-w-0">
                 <a rel="noreferrer" href={`https://explorer.solana.com/address/${nft.address}`} target="_blank" className="text-sm font-medium text-gray-900 truncate">
-                    {nft.name} - <Moment interval={1000} fromNow>{moment.unix( nft.blockTime )}</Moment>
+                    {nft.name} - <Moment interval={1000} fromNow>{moment( nft.blockTime )}</Moment>
                 </a>
             </div>
         </div>

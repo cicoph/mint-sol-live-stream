@@ -7,14 +7,12 @@ interface Props {
 
 const Grid: FunctionComponent<Props> = ( { title, children } ) => {
     return (
-        <div className="grid grid-cols-12 gap-6 mt-5">
-            <div className="col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6 xl:col-span-4 bg-white shadow rounded-md p-5">
-                <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold leading-none text-gray-900">{title}</h3>
-                </div>
-                <div className="flow-root">
-                    { children }
-                </div>
+        <div className="col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6 xl:col-span-4 bg-white shadow rounded-md p-5">
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold leading-none text-gray-900">{title}</h3>
+            </div>
+            <div className="flow-root">
+                { children }
             </div>
         </div>
     );
