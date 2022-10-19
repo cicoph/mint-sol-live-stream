@@ -1,26 +1,25 @@
 import React from "react";
 // import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import NftsList from "./nft-list/NftsList";
-import ProjectsList from "./project-list/ProjectsList";
+
+import ProjectsList from "./project/ProjectsList";
+
+import ProjectDetails from "./project/ProjectDetails";
 import Grid from "./grid/Grid";
 import './index.css';
 
 function App() {  
   return (
     <div className="flex overflow-hidden">
-      <nav className="side-nav">
-        <ul>
-          <li>
-            <a href="/" className="side-menu">Mint Live</a>
-          </li>
-        </ul>
-      </nav>
       <div className="content">
-        <div className="grid grid-cols-12 gap-6 mt-5">
-          <Grid title="Latest Projects Mint">
+        <div className="grid grid-cols-12 gap-6 mt-5 bg-white shadow rounded-md">
+          <Grid title="Top Mints" size={`col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-4 xl:col-span-4 p-6`}>
             <ProjectsList />
           </Grid>
-          <Grid title="Latest Mint">
+          <Grid title="Top Collection Holder Minted" size={`col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5 p-6 bg-slate-50 border-x border-gray-100`}>
+            <ProjectDetails />
+          </Grid>
+          <Grid title="Live Mint" size={`col-span-12 sm:col-span-12 md:col-span-2 lg:col-span-3 xl:col-span-3 p-6`}>
             <NftsList />
           </Grid>
         </div>

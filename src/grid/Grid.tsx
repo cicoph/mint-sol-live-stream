@@ -3,11 +3,12 @@ import { FunctionComponent, ReactNode } from "react";
 interface Props {
     title: string;
     children?: ReactNode;
+    size: string;
 }
 
-const Grid: FunctionComponent<Props> = ( { title, children } ) => {
+const Grid: FunctionComponent<Props> = ( { title, children, size } ) => {
     return (
-        <div className="col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6 xl:col-span-4 bg-white shadow rounded-md p-5">
+        <div className={`${size} relative`}>
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold leading-none text-gray-900">{title}</h3>
             </div>

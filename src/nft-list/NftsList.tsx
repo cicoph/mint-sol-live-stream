@@ -31,7 +31,12 @@ const NftsList = () => {
         <div
             className="divide-y divide-gray-200"
             onMouseOver={ () => setPaused(true) } 
-            onMouseLeave={ () => setPaused(false) }>
+            onMouseLeave={ () => setPaused(false) }
+        >
+            <span className="absolute h-5 w-5 top-5 left-1">
+                <span className={ `${( paused ? 'bg-yellow-400' : 'bg-green-400' )} absolute animate-ping inline-flex h-full w-full rounded-full opacity-75`}></span>
+                <span className={ `${( paused ? 'bg-yellow-400' : 'bg-green-400' )} relative inline-flex rounded-full h-5 w-5`}></span>
+            </span>
             { nfts.map( ( nft: any ) => (
                 <NftCard key={ nft.address } nft={ nft } />
             ))}
