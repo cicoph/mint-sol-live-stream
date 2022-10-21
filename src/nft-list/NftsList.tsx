@@ -5,27 +5,19 @@ import NftCard from './utils/NftCard';
 import Nft from './utils/Nft';
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL
-console.log( SOCKET_URL)
 const socket = socketIOClient( `${SOCKET_URL}` );
 
 const NftsList = () => {
     const [ paused, setPaused ] = useState<boolean>(false);
     const [ nfts, setNfts ] = useState<Nft[]>([]);
-    // const [ size, setSize ] = useState<number>(50);
+
     useEffect( () => {
         const handlerMinted = ( nft: Nft ) => setNfts( prevNfts => [ nft, ...prevNfts ] );
-        console.log( paused )
         paused ? socket.off('nft:New', handlerMinted) : socket.on('nft:New', handlerMinted);
         return () => {
             socket.off('nft:New', handlerMinted);
         }
-    }, [ paused ] ); //
-    
-    // useEffect( () => {
-    //     setSize(nfts.length);
-    // },[nfts]);
-    
-    //if (!nfts) return null;
+    }, [ paused ] );
     
     return (
         <div
