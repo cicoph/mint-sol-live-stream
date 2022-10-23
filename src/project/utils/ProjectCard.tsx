@@ -13,7 +13,7 @@ const ProjectCard: FunctionComponent<Props> = ({ project }) => {
             <img src={project.nfts_minted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
             <div className="min-w-0 relative flex-auto">
                 <h2 className="font-semibold text-slate-900 truncate pr-20">{project.project_symbol}</h2>
-                <dl className="mt-2 flex flex-wrap text-sm leading-6 font-medium">
+                <dl className="mt-2 text-xs flex flex-wrap text-sm leading-6 font-medium">
                     <div>
                         <dt className="sr-only">Platform</dt>
                         <dd className="px-1.5 ring-1 ring-slate-200 rounded">{project.platform}</dd>
@@ -27,7 +27,8 @@ const ProjectCard: FunctionComponent<Props> = ({ project }) => {
                         <dd className="flex items-center">
                             <svg width="2" height="2" fill="currentColor" className="mx-2 text-slate-300" aria-hidden="true">
                                 <circle cx="1" cy="1" r="1" />
-                            </svg>{project.nfts_minted?.length}Mint
+                            </svg>
+                            {project.nfts_minted?.length}Mint
                         </dd>
                     </div>
                     <div>
