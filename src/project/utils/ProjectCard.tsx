@@ -4,37 +4,63 @@ import moment from "moment";
 import Moment from 'react-moment';
 
 interface Props {
-    // style: CSSProperties;
     project: Project;
 }
- 
-const NftCard: FunctionComponent<Props> = ({ project }) => {
-  return (
-    <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <div className="flex items-center justify-between">
-            <span className="text-sm font-light text-gray-600 dark:text-gray-400">Latest Mint <Moment interval={1000} fromNow>{moment( project.latest_update )}</Moment></span>
-            <a className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500" role="button">{project.platform}</a>
-        </div>
-        <div className="mt-2">
-            <a href="#" className="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline" role="link">
-                {project.name}
-            </a>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">
-                {project.description}
-            </p>
-        </div>
-        <div className="flex items-center justify-between mt-4">
-            <a href="#" className="text-blue-600 dark:text-blue-400 hover:underline" role="link">
-                Read more
-            </a>
-            <div className="flex items-center">
-                <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" 
-                    src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=40&q=80" alt="avatar" />
-                <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200" role="link">Khatab wedaa</a>
+
+const ProjectCard: FunctionComponent<Props> = ({ project }) => {
+    return (
+        <div className="flex items-center space-x-6 py-4 px-4 -mx-6">
+            <img src={project.nfts_minted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
+            <div className="min-w-0 relative flex-auto">
+                <h2 className="font-semibold text-slate-900 truncate pr-20">{project.project_symbol}</h2>
+                <dl className="mt-2 flex flex-wrap text-sm leading-6 font-medium">
+                    <div>
+                        <dt className="sr-only">Platform</dt>
+                        <dd className="px-1.5 ring-1 ring-slate-200 rounded">{project.platform}</dd>
+                    </div>
+                    <div className="ml-2">
+                        <dt className="sr-only">Price Mint</dt>
+                        <dd>1 SOL</dd>
+                    </div>
+                    <div className="ml-2">
+                        <dt className="sr-only">Total Mints</dt>
+                        <dd className="flex items-center">
+                            <svg width="2" height="2" fill="currentColor" className="mx-2 text-slate-300" aria-hidden="true">
+                                <circle cx="1" cy="1" r="1" />
+                            </svg>{project.nfts_minted?.length}Mint
+                        </dd>
+                    </div>
+                    <div>
+                        <dt className="sr-only">Symbol</dt>
+                        <dd className="flex items-center">
+                            <svg width="2" height="2" fill="currentColor" className="mx-2 text-slate-300" aria-hidden="true">
+                                <circle cx="1" cy="1" r="1" />
+                            </svg>
+                            {project.project_symbol}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt className="sr-only">Latest Update</dt>
+                        <dd className="flex items-center">
+                            <svg width="2" height="2" fill="currentColor" className="mx-2 text-slate-300" aria-hidden="true">
+                                <circle cx="1" cy="1" r="1" />
+                            </svg>
+                            <Moment fromNow>{project.latest_update}</Moment>
+                        </dd>
+                    </div>
+                    <div className="flex-none w-full mt-2 font-normal">
+                        <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                            <div className="bg-blue-600 h-2.5 rounded-full w-50"></div>
+                        </div>
+                    </div>
+                    <div className="flex-none w-full mt-2 font-normal">
+                        <dt className="sr-only">Description</dt>
+                        <dd className="text-slate-400">{project.description}</dd>
+                    </div>
+                </dl>
             </div>
         </div>
-    </div>
-  );
+    );
 };
- 
-export default NftCard;
+
+export default ProjectCard;

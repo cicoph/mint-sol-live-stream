@@ -1,12 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
+// import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
+import Moment from 'react-moment';
 
 import Project  from './utils/Project';
 import ProjectCard  from './utils/ProjectCard';
+import ButtonsTime, { OnChosenFunction } from './utils/ButtonsTime';
 
-// type IntervalCallback = () => NodeJS.Timer | null;
-
-const url = `http://localhost:4001/projects/`;
-
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const ProjectsList = () => {
 
@@ -14,12 +16,18 @@ const ProjectsList = () => {
 
     const [ timeFrame, setTimeFrame ] = useState<number>(5);
     const [ projects, setProjects ] = useState<Project[]>([]);
+    const [ lastUpdate, setLastUpdate ] = useState<Date>( new Date )
     const getProjectsWithFetch = async ( timeFrame: number ): Promise<void> => {
-        fetch( `${url}${timeFrame}` )
+        const URL = `${SERVER_URL}/projects/${timeFrame}`
+        fetch( URL )
         .then( async (response) => await response.json())
-        .then( ( result: Project[] ) => setProjects( result ) );
-        return
+        .then( ( result: Project[] ) => setProjects( result ) )
+        .catch((error) => {
+            console.log(error)
+        });
     };
+
+    useEffect( () => setLastUpdate(new Date), [projects] )
 
     useEffect( () => {
         getProjectsWithFetch( timeFrame )
@@ -28,26 +36,39 @@ const ProjectsList = () => {
             if( cachedCallback.current ) clearInterval( cachedCallback.current )
         }
     }, [timeFrame]);
-    
-    // useEffect( () => {
-    //     setSize(nfts.length);
-    // },[nfts]);
-    
-    //if (!nfts) return null;
+
+    // const handleTimeFrame = (time: number) => {
+    //     setTimeFrame(time);
+    // }
     
     return (
-        <div
-            className="divide-y divide-gray-200"
-            >
-            <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" onClick={ () => setTimeFrame( 5 )}>5</button>
-                <button className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" onClick={ () => setTimeFrame( 15 )}>15</button>
-                <button className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white" onClick={ () => setTimeFrame( 30 )}>30</button>
+        <section>
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold leading-none text-gray-900">
+                    Top Mints
+                </h3>
+                <span className="font-regular text-xs text-cyan-500">
+                    Last Update: <Moment format='HH:mm:ss'>{lastUpdate}</Moment>
+                </span>
             </div>
-            { projects.map( ( project: Project ) => (
-                <ProjectCard key={ project._id.toString() } project={ project } />
-            ))}
-        </div>
+            <div className="flow-root">
+                <div className="divide-y divide-gray-200">
+                    <div className="flex -mx-6 border-y p-2 justify-between items-center">
+                        <button 
+                            onClick={() => getProjectsWithFetch( timeFrame )}
+                            className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
+                            {/* <FontAwesomeIcon icon={icon({name: 'rotate-right', style: 'solid'})} /> */}
+                            <FontAwesomeIcon icon={solid('arrow-rotate-right')} />
+                        </button>
+                        <ButtonsTime onChosen={ (time: number) => setTimeFrame( time )} />
+                    </div>
+                    
+                    { projects.map( ( project: Project ) => (
+                        <ProjectCard key={ project._id.toString() } project={ project } />
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 };
  

@@ -4,8 +4,8 @@ import socketIOClient from 'socket.io-client';
 import NftCard from './utils/NftCard';
 import Nft from './utils/Nft';
 
-const SOCKET_URL = process.env.REACT_APP_SOCKET_URL
-const socket = socketIOClient( `${SOCKET_URL}` );
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
+const socket = socketIOClient( `${SERVER_URL}` );
 
 const NftsList = () => {
     const [ paused, setPaused ] = useState<boolean>(false);
@@ -20,19 +20,29 @@ const NftsList = () => {
     }, [ paused ] );
     
     return (
-        <div
-            className="divide-y divide-gray-200"
-            onMouseOver={ () => setPaused(true) } 
-            onMouseLeave={ () => setPaused(false) }
-        >
-            <span className="absolute h-5 w-5 top-5 left-1">
-                <span className={ `${( paused ? 'bg-yellow-400' : 'bg-green-400' )} absolute animate-ping inline-flex h-full w-full rounded-full opacity-75`}></span>
-                <span className={ `${( paused ? 'bg-yellow-400' : 'bg-green-400' )} relative inline-flex rounded-full h-5 w-5`}></span>
-            </span>
-            { nfts.map( ( nft: any ) => (
-                <NftCard key={ nft.address } nft={ nft } />
-            ))}
-        </div>
+        <section>
+            <div className="flex items-center justify-start mb-4">
+                <span className="h-3 w-3 relative mr-2">
+                    <span className={ `${( paused ? 'bg-yellow-400' : 'bg-green-400' )} absolute animate-ping inline-flex h-full w-full rounded-full opacity-75`}></span>
+                    <span className={ `${( paused ? 'bg-yellow-400' : 'bg-green-400' )} absolute inline-flex rounded-full h-3 w-3`}></span>
+                </span>
+                <h3 className="text-xl font-bold leading-none text-gray-900">
+                    Live Mint
+                </h3>
+            </div>
+            <div className="flow-root">
+                <div
+                    className="divide-y divide-gray-200"
+                    onMouseOver={ () => setPaused(true) } 
+                    onMouseLeave={ () => setPaused(false) }
+                >
+                    { nfts.map( ( nft: any ) => (
+                        <NftCard key={ nft.address } nft={ nft } />
+                    ))}
+                </div>
+            </div>
+        </section>
+
     );
 };
  
