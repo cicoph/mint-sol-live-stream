@@ -1,7 +1,7 @@
 interface Project {
     _id: Object;
     symbol?: string;
-    cm_address: string;
+    cmAddress: string;
     creator?: [any];
     latestUpdate: Date;
     description?: string;
