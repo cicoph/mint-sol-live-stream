@@ -20,7 +20,7 @@ const ProjectCard: FunctionComponent<Props> = ({ project }) => {
                     </div>
                     <div className="ml-2">
                         <dt className="sr-only">Price Mint</dt>
-                        <dd>project.price</dd>
+                        <dd>{project.price}</dd>
                     </div>
                     <div className="ml-2">
                         <dt className="sr-only">Total Mints</dt>
