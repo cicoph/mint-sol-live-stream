@@ -9,6 +9,8 @@ interface Project {
     nfts_minted?: [any];
     image?: string;
     platform?: string;
+    price?: number;
+    maxSupply?: number;
 }
 
 export default Project;
