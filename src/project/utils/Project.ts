@@ -1,16 +1,17 @@
 interface Project {
     _id: Object;
-    project_symbol?: string;
+    symbol?: string;
     cm_address: string;
     creator?: [any];
-    latest_update: Date;
+    latestUpdate: Date;
     description?: string;
-    project_collection?: string;
-    nfts_minted?: [any];
+    name?: string;
+    nftsMinted?: [any];
     image?: string;
     platform?: string;
     price?: number;
     maxSupply?: number;
+    itemsMinted?: number;
 }
 
 export default Project;
