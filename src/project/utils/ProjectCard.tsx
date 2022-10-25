@@ -7,7 +7,7 @@ interface Props {
     onSelect: ( arg0: Project ) => any;
 }
 
-const ProjectCard: FunctionComponent<Props> = ({ project, onSelect }) => {
+const ProjectCard: FunctionComponent<Props> = ( { project, onSelect } ) => {
     const width = ( ( project?.itemsMinted as number ) / ( project?.maxSupply as number)  * 100 ).toFixed(0);
     const progressStyle = {
        width: `${width}%`

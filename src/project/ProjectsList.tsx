@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, FunctionComponent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 // import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
@@ -12,9 +12,11 @@ import ProjectDetails from './ProjectDetails';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 export type onSelectProject = ( arg0: Project ) => any;
-
-const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject } ) => {
-
+interface Props {
+    projectSelected: onSelectProject;
+}
+// const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject } ) => {
+const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
     const cachedCallback = useRef<NodeJS.Timer | null>(null);
 
     const [ timeFrame, setTimeFrame ] = useState<number>(5);
@@ -30,10 +32,6 @@ const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject 
         });
     };
 
-    const getProjectWithFetch = async ( id: string ): Promise<void> => {
-        
-    };
-
     useEffect( () => setLastUpdate(new Date), [projects] )
 
     useEffect( () => {
@@ -44,15 +42,15 @@ const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject 
         }
     }, [timeFrame]);
 
-    const projectDetailsView = async ( id: string ) => {
-        const URL = `${SERVER_URL}/projects/id/${id}`
+    const handlerProjectDetails = async ( id: string ) => {
+        console.log( id )
+        const URL = `${SERVER_URL}/project/id/${id}`
         await fetch( URL )
         .then( async (response) => await response.json())
         .then( ( result: Project ) => projectSelected( result ) )
         .catch((error) => {
             console.log(error)
         });
-        console.log( id )
     }
 
     // const handleTimeFrame = (time: number) => {
@@ -82,7 +80,7 @@ const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject 
                     </div>
                     
                     { projects.map( ( project: Project ) => (
-                        <ProjectCard key={ project._id.toString() } onSelect={ ( project ) => projectDetailsView(project._id.toString() ) } project={ project } />
+                        <ProjectCard key={ project._id.toString() } onSelect={ ( project ) => handlerProjectDetails(project._id.toString() ) } project={ project } />
                     ))}
                 </div>
             </div>
