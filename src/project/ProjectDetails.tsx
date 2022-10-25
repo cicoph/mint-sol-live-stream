@@ -1,7 +1,9 @@
 import { FunctionComponent } from 'react'
+import Moment from 'react-moment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { brands, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import Project from './utils/Project'
 import NoProjectSelected from './utils/NoProjectSelected'
-import Moment from 'react-moment';
 
 interface Props {
     project: Project | null;
@@ -24,9 +26,9 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                                 <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
                                 <span className="truncate w-15">{project.cmAddress}</span>
                                 <ul className="ml-auto flex items-center">
-                                    <li>Twitter</li>
-                                    <li>Discord</li>
-                                    <li>Site</li>
+                                    <li><FontAwesomeIcon icon={ brands( 'twitter' ) } /> Twitter</li>
+                                    <li><FontAwesomeIcon icon={ brands( 'discord' ) } /> Discord</li>
+                                    <li><FontAwesomeIcon icon={ solid( 'earth' ) } /> Site</li>
                                 </ul>
                             </div>
                         </div>
