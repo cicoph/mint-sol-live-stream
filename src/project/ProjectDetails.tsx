@@ -17,49 +17,47 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                     Top Collection Holder Minted
                 </h3>
             </div>
-            <div className="flow-root">
-                { project ? 
-                    <div>
-                        <div className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
-                            <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
-                            <div className="w-full">
-                                <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
-                                <span className="truncate w-15">{project.cmAddress}</span>
-                                <ul className="ml-auto flex items-center">
-                                    <li><FontAwesomeIcon icon={ brands( 'twitter' ) } /> Twitter</li>
-                                    <li><FontAwesomeIcon icon={ brands( 'discord' ) } /> Discord</li>
-                                    <li><FontAwesomeIcon icon={ solid( 'earth' ) } /> Site</li>
-                                </ul>
-                            </div>
-                        </div>
+            { project ? 
+                <div className="flow-root">
+                    <div className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
+                        <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
                         <div className="w-full">
-                            <div className="grid grid-cols-4 gap-2">
-                                <div className="flex flex-col">
-                                    <span className="text-medium">Minted</span>
-                                    <span className="flex items-center">
-                                        {project.itemsMinted}
-                                    </span>
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-medium">Supply</span>
-                                    <span className="flex items-center">
-                                        {project.maxSupply}
-                                    </span>
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-medium">Price Mint</span>
-                                    <span> {project.price} SOL </span>
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-medium">Mint Date</span>
-                                    <span><Moment format='D MMM'>{project.nftsMinted?.at(0).blockTime}</Moment></span>
-                                </div>
+                            <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
+                            <span className="truncate w-15">{project.cmAddress}</span>
+                            <ul className="ml-auto flex items-center">
+                                <li><FontAwesomeIcon icon={ brands( 'twitter' ) } /> Twitter</li>
+                                <li><FontAwesomeIcon icon={ brands( 'discord' ) } /> Discord</li>
+                                <li><FontAwesomeIcon icon={ solid( 'earth' ) } /> Site</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="w-full">
+                        <div className="grid grid-cols-4 gap-2">
+                            <div className="flex flex-col">
+                                <span className="text-medium">Minted</span>
+                                <span className="flex items-center">
+                                    {project.itemsMinted}
+                                </span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-medium">Supply</span>
+                                <span className="flex items-center">
+                                    {project.maxSupply}
+                                </span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-medium">Price Mint</span>
+                                <span> {project.price} SOL </span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-medium">Mint Date</span>
+                                <span><Moment format='D MMM'>{project.nftsMinted?.at(0).blockTime}</Moment></span>
                             </div>
                         </div>
-                    </div> 
-                    :  <NoProjectSelected />
-                }
-            </div>
+                    </div>
+                </div> 
+                :  <NoProjectSelected />
+            }
         </div> 
     )
 }
