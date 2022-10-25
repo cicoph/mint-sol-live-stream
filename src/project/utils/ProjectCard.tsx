@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import Project from './Project';
-import moment from "moment";
 import Moment from 'react-moment';
 
 interface Props {

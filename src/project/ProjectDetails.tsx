@@ -1,6 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
+import { FunctionComponent, useEffect, useState, useRef } from 'react';
+import Project from './utils/Project';
 
-const ProjectDetails = () => {
+
+interface Props {
+    project: Project;
+}
+const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
     return(
         <section>
             <div className="flex items-center justify-between mb-4">
