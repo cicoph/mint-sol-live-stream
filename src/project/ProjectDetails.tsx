@@ -3,10 +3,11 @@ import Project from './utils/Project';
 
 
 interface Props {
-    project: Project;
+    project: Project | null;
+    // onSelect: ( ) => any;
 }
 const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
-    return(
+    return( project ?
         <section>
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold leading-none text-gray-900">
@@ -35,7 +36,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                     </div>
                 </div>
             </div>
-        </section>
+        </section> : <div>Niente selezionato</div>
     )
 }
 

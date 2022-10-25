@@ -7,10 +7,13 @@ import Moment from 'react-moment';
 import Project  from './utils/Project';
 import ProjectCard  from './utils/ProjectCard';
 import ButtonsTime, { OnChosenFunction } from './utils/ButtonsTime';
+import ProjectDetails from './ProjectDetails';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
-const ProjectsList = () => {
+export type onSelectProject = ( arg0: Project ) => any;
+
+const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject } ) => {
 
     const cachedCallback = useRef<NodeJS.Timer | null>(null);
 
@@ -27,6 +30,10 @@ const ProjectsList = () => {
         });
     };
 
+    const getProjectWithFetch = async ( id: string ): Promise<void> => {
+        
+    };
+
     useEffect( () => setLastUpdate(new Date), [projects] )
 
     useEffect( () => {
@@ -36,6 +43,17 @@ const ProjectsList = () => {
             if( cachedCallback.current ) clearInterval( cachedCallback.current )
         }
     }, [timeFrame]);
+
+    const projectDetailsView = async ( id: string ) => {
+        const URL = `${SERVER_URL}/projects/id/${id}`
+        await fetch( URL )
+        .then( async (response) => await response.json())
+        .then( ( result: Project ) => projectSelected( result ) )
+        .catch((error) => {
+            console.log(error)
+        });
+        console.log( id )
+    }
 
     // const handleTimeFrame = (time: number) => {
     //     setTimeFrame(time);
@@ -64,7 +82,7 @@ const ProjectsList = () => {
                     </div>
                     
                     { projects.map( ( project: Project ) => (
-                        <ProjectCard key={ project._id.toString() } project={ project } />
+                        <ProjectCard key={ project._id.toString() } onSelect={ ( project ) => projectDetailsView(project._id.toString() ) } project={ project } />
                     ))}
                 </div>
             </div>
