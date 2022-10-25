@@ -13,7 +13,7 @@ const ProjectCard: FunctionComponent<Props> = ( { project, selectProject } ) => 
        width: `${width}%`
     }
     const handlerClic = ( project: Project ) => {
-        console.log( project._id )
+        selectProject( project )
     }
     return (
         <div onClick={ () => handlerClic( project ) } className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
