@@ -45,7 +45,7 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
     const handlerProjectDetails = async ( id: string ) => {
         await fetch( `${SERVER_URL}/project/id/${id}` )
         .then( async (response) => await response.json())
-        .then( ( result: Project ) => onProjectSelected( result ) )
+        .then( ( result: Project ) => projectSelected( result ) )
         .catch((error) => {
             console.log(error)
         });
