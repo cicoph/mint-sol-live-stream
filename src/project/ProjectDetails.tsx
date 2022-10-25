@@ -30,23 +30,23 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                         </div>
                         <div className="w-full">
                             <div className="grid grid-cols-4 gap-2">
-                                <div>
+                                <div className="flex flex-col">
                                     <span className="text-medium">Minted</span>
                                     <span className="flex items-center">
                                         {project.itemsMinted}
                                     </span>
                                 </div>
-                                <div>
+                                <div className="flex flex-col">
                                     <span className="text-medium">Supply</span>
                                     <span className="flex items-center">
                                         {project.maxSupply}
                                     </span>
                                 </div>
-                                <div>
+                                <div className="flex flex-col">
                                     <span className="text-medium">Price Mint</span>
                                     <span> {project.price} SOL </span>
                                 </div>
-                                <div>
+                                <div className="flex flex-col">
                                     <span className="text-medium">Mint Date</span>
                                     <span><Moment format='D MMM'>{project.nftsMinted?.at(0).blockTime}</Moment></span>
                                 </div>
