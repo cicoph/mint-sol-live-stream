@@ -12,16 +12,18 @@ import ProjectDetails from './ProjectDetails';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 export type onSelectProject = ( arg0: Project ) => any;
+
 interface Props {
     projectSelected: onSelectProject;
 }
-// const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject } ) => {
+
 const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
     const cachedCallback = useRef<NodeJS.Timer | null>(null);
 
     const [ timeFrame, setTimeFrame ] = useState<number>(5);
     const [ projects, setProjects ] = useState<Project[]>([]);
     const [ lastUpdate, setLastUpdate ] = useState<Date>( new Date )
+
     const getProjectsWithFetch = async ( timeFrame: number ): Promise<void> => {
         const URL = `${SERVER_URL}/projects/${timeFrame}`
         fetch( URL )
@@ -32,6 +34,15 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
         });
     };
 
+    const handlerProjectDetails = async ( id: string ) => {
+        await fetch( `${SERVER_URL}/project/id/${id}` )
+        .then( async (response) => await response.json())
+        .then( ( result: Project ) => projectSelected( result ) )
+        .catch((error) => {
+            console.log(error)
+        });
+    }
+
     useEffect( () => setLastUpdate(new Date), [projects] )
 
     useEffect( () => {
@@ -41,15 +52,6 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
             if( cachedCallback.current ) clearInterval( cachedCallback.current )
         }
     }, [timeFrame]);
-
-    const handlerProjectDetails = async ( id: string ) => {
-        await fetch( `${SERVER_URL}/project/id/${id}` )
-        .then( async (response) => await response.json())
-        .then( ( result: Project ) => projectSelected( result ) )
-        .catch((error) => {
-            console.log(error)
-        });
-    }
 
     // const handleTimeFrame = (time: number) => {
     //     setTimeFrame(time);

@@ -1,42 +1,62 @@
-import { FunctionComponent, useEffect, useState, useRef } from 'react';
-import Project from './utils/Project';
-
+import { FunctionComponent } from 'react'
+import Project from './utils/Project'
+import NoProjectSelected from './utils/NoProjectSelected'
+import Moment from 'react-moment';
 
 interface Props {
     project: Project | null;
-    // onSelect: ( ) => any;
+
 }
 const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
-    return( project ?
-        <section>
+    return( 
+        <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold leading-none text-gray-900">
                     Top Collection Holder Minted
                 </h3>
             </div>
             <div className="flow-root">
-                <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <div className="flex items-center justify-between">
-                        <span className="text-sm font-light text-gray-600 dark:text-gray-400">Mar 10, 2019</span>
-                        <a className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500" role="button">Design</a>
-                    </div>
-
-                    <div className="mt-2">
-                        <a href="#" className="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline" role="link">Accessibility tools for designers and developers</a>
-                        <p className="mt-2 text-gray-600 dark:text-gray-300">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus delectus nihil quis facere in modi ratione libero!</p>
-                    </div>
-
-                    <div className="flex items-center justify-between mt-4">
-                        <a href="#" className="text-blue-600 dark:text-blue-400 hover:underline" role="link">Read more</a>
-
-                        <div className="flex items-center">
-                            <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=40&q=80" alt="avatar" />
-                            <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200" role="link">Khatab wedaa</a>
+                { project ? 
+                    <div>
+                        <div className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
+                            <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
+                            <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
+                            <span className="truncate w-15">{project.cmAddress}</span>
+                            <ul>
+                                <li>Twitter</li>
+                                <li>Discord</li>
+                                <li>Site</li>
+                            </ul>
                         </div>
-                    </div>
-                </div>
+                        <div className="w-full">
+                            <div className="grid grid-cols-4 gap-2">
+                                <div>
+                                    <span className="text-medium">Minted</span>
+                                    <span className="flex items-center">
+                                        {project.itemsMinted}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span className="text-medium">Supply</span>
+                                    <span className="flex items-center">
+                                        {project.maxSupply}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span className="text-medium">Price Mint</span>
+                                    <span> {project.price} SOL </span>
+                                </div>
+                                <div>
+                                    <span className="text-medium">Mint Date</span>
+                                    <span><Moment format='D MMM'>{project.nftsMinted?.at(0).blockTime}</Moment></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    :  <NoProjectSelected />
+                }
             </div>
-        </section> : <div>Niente selezionato</div>
+        </div> 
     )
 }
 
