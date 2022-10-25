@@ -26,13 +26,12 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                             <span className="truncate w-15">{project.cmAddress}</span>
                             <ul className="ml-auto flex items-center">
                                 <li><FontAwesomeIcon icon={ brands( 'twitter' ) } /> Twitter</li>
-                                <li><FontAwesomeIcon icon={ brands( 'discord' ) } /> Discord</li>
                                 <li><FontAwesomeIcon icon={ solid( 'earth' ) } /> Site</li>
                             </ul>
                         </div>
                     </div>
                     <div className="w-full">
-                        <div className="grid grid-cols-4 gap-2">
+                        <div className="grid font-md grid-cols-4 gap-2">
                             <div className="flex flex-col">
                                 <span className="text-medium">Minted</span>
                                 <span className="flex items-center">
