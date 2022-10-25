@@ -13,10 +13,10 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 export type onSelectProject = ( arg0: Project ) => any;
 interface Props {
-    projectSelected: onSelectProject;
+    onProjectSelected: onSelectProject;
 }
 // const ProjectsList = ( { projectSelected } : { projectSelected: onSelectProject } ) => {
-const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
+const ProjectsList : FunctionComponent<Props> = ( { onProjectSelected } ) => {
     const cachedCallback = useRef<NodeJS.Timer | null>(null);
 
     const [ timeFrame, setTimeFrame ] = useState<number>(5);
@@ -44,13 +44,13 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
 
     const handlerProjectDetails = async ( id: string ) => {
         console.log( id )
-        const URL = `${SERVER_URL}/project/id/${id}`
-        await fetch( URL )
-        .then( async (response) => await response.json())
-        .then( ( result: Project ) => projectSelected( result ) )
-        .catch((error) => {
-            console.log(error)
-        });
+        // const URL = `${SERVER_URL}/project/id/${id}`
+        // await fetch( URL )
+        // .then( async (response) => await response.json())
+        // .then( ( result: Project ) => onProjectSelected( result ) )
+        // .catch((error) => {
+        //     console.log(error)
+        // });
     }
 
     // const handleTimeFrame = (time: number) => {
@@ -80,7 +80,7 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
                     </div>
                     
                     { projects.map( ( project: Project ) => (
-                        <ProjectCard key={ project._id.toString() } onSelect={ ( project ) => handlerProjectDetails(project._id.toString() ) } project={ project } />
+                        <ProjectCard key={ project._id.toString() } selectProject={ ( project ) => handlerProjectDetails(project._id.toString() ) } project={ project } />
                     ))}
                 </div>
             </div>

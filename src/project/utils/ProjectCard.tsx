@@ -4,16 +4,16 @@ import Moment from 'react-moment';
 
 interface Props {
     project: Project;
-    onSelect: ( arg0: Project ) => any;
+    selectProject: ( arg0: Project ) => any;
 }
 
-const ProjectCard: FunctionComponent<Props> = ( { project, onSelect } ) => {
+const ProjectCard: FunctionComponent<Props> = ( { project, selectProject } ) => {
     const width = ( ( project?.itemsMinted as number ) / ( project?.maxSupply as number)  * 100 ).toFixed(0);
     const progressStyle = {
        width: `${width}%`
     }
     return (
-        <div onClick={ onSelect( project ) } className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
+        <div onClick={ selectProject( project ) } className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
             <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
             <div className="w-full">
                 <div className="grid grid-cols-2 gap-2">

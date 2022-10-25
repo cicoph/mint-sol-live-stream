@@ -17,7 +17,7 @@ function App() {
       <div className="content">
         <div className="grid grid-cols-12 gap-0 mt-5 bg-white shadow rounded-md">
           <Grid size={`col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-4 xl:col-span-4 p-6`}>
-            <ProjectsList projectSelected={ (project: Project) => setProjectDetail( project )}/>
+            <ProjectsList onProjectSelected={ (project: Project) => setProjectDetail( project )}/>
           </Grid>
           <Grid size={`col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5 p-6 bg-slate-50 border-x border-gray-100`}>
             <ProjectDetails project={ projectDetail }/>
