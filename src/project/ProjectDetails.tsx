@@ -24,7 +24,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                         <div className="w-full">
                             <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
                             <span className="truncate w-15">{project.cmAddress}</span>
-                            <ul className="ml-auto flex items-center">
+                            <ul className="ml-auto flex items-center mt-2">
                                 <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ brands( 'twitter' ) } /></li>
                                 <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ brands( 'discord' ) } /></li>
                                 <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ solid( 'earth' ) } /></li>
