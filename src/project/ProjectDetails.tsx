@@ -26,6 +26,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                             <span className="truncate w-15">{project.cmAddress}</span>
                             <ul className="ml-auto flex items-center">
                                 <li><FontAwesomeIcon icon={ brands( 'twitter' ) } /> Twitter</li>
+                                <li><FontAwesomeIcon icon={ brands( 'discord' ) } /> Discord</li>
                                 <li><FontAwesomeIcon icon={ solid( 'earth' ) } /> Site</li>
                             </ul>
                         </div>
