@@ -20,13 +20,15 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                     <div>
                         <div className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
                             <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
-                            <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
-                            <span className="truncate w-15">{project.cmAddress}</span>
-                            <ul>
-                                <li>Twitter</li>
-                                <li>Discord</li>
-                                <li>Site</li>
-                            </ul>
+                            <div className="w-full">
+                                <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
+                                <span className="truncate w-15">{project.cmAddress}</span>
+                                <ul className="ml-auto flex items-center">
+                                    <li>Twitter</li>
+                                    <li>Discord</li>
+                                    <li>Site</li>
+                                </ul>
+                            </div>
                         </div>
                         <div className="w-full">
                             <div className="grid grid-cols-4 gap-2">
