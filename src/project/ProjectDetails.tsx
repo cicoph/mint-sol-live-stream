@@ -11,7 +11,7 @@ interface Props {
 }
 const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
     return( 
-        <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold leading-none text-gray-900">
                     Top Collection Holder Minted
