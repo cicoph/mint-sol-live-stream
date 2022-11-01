@@ -14,7 +14,7 @@ const ProjectCard: FunctionComponent<Props> = ( { project, selectProject } ) => 
     }
     const returnProject = ( project: Project ) => selectProject( project )
     return (
-        <div onClick={ () => returnProject( project ) } className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
+        <div onClick={ () => returnProject( project ) } className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs cursor-pointer">
             <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="60" className="flex-none rounded-md bg-slate-100" />
             <div className="w-full">
                 <div className="grid grid-cols-2 gap-2">
