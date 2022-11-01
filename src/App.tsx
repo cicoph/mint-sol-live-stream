@@ -22,7 +22,7 @@ function App() {
           <Grid size={`col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5 p-6 bg-slate-50 border-x border-gray-100`}>
             <ProjectDetails project={ projectDetail }/>
           </Grid>
-          <Grid size={`col-span-12 sm:col-span-12 md:col-span-2 lg:col-span-3 xl:col-span-3 p-6`}>
+          <Grid size={`col-span-12 sm:col-span-12 md:col-span-2 lg:col-span-3 xl:col-span-3 p-6 h-screen max-h-screen overscroll-contain`}>
             <NftsList />
           </Grid>
         </div>
