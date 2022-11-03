@@ -20,7 +20,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
             { project ? 
                 <div className="flow-root">
                     <div className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
-                        <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
+                        <img src={project.image || project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
                         <div className="w-full">
                             <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
                             <span className="truncate w-15">{project.cmAddress}</span>

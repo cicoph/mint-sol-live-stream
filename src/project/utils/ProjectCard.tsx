@@ -14,16 +14,16 @@ const ProjectCard: FunctionComponent<Props> = ( { project, selectProject } ) => 
     }
     const returnProject = ( project: Project ) => selectProject( project )
     return (
-        <div onClick={ () => returnProject( project ) } className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs cursor-pointer">
-            <img src={project.nftsMinted?.at(0).image} alt="" width="60" height="60" className="flex-none rounded-md bg-slate-100" />
+        <div onClick={ () => returnProject( project ) } className="flex items-center space-x-4 py-4 px-4 -mx-6 text-xs cursor-pointer">
+            <img src={project.image || project.nftsMinted?.at(0).image} alt="" width="60" height="60" className="flex-none rounded-md bg-slate-100" />
             <div className="w-full">
                 <div className="grid grid-cols-2 gap-2">
                     <div className="w-auto">
-                        <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
+                        <h2 className="font-semibold text-slate-900 truncate">{project.name}</h2>
                         <dl className="mt-2 flex flex-wrap">
                             <dt className="sr-only">Total Mints</dt>
                             <dd className="flex items-center">
-                                {project.itemsMinted}Mints
+                                {project.nftsMinted?.length}Mints
                             </dd>
                             <div className="mx-2">
                                 <dt className="sr-only">Price Mint</dt>
