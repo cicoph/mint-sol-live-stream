@@ -20,10 +20,10 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
             { project ? 
                 <div className="flow-root">
                     <div className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
-                        <img src={project.image || project.nftsMinted?.at(0).image} alt="" width="60" height="88" className="flex-none rounded-md bg-slate-100" />
+                        <img src={project.image || project.nfts?.at(0).image} alt="" width="60" height="60" className="flex-none rounded-md bg-slate-100" />
                         <div className="w-full">
                             <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
-                            <span className="truncate w-15">{project.cmAddress}</span>
+                            <span className="truncate w-15">{project.candyMachineId}</span>
                             <ul className="ml-auto flex items-center mt-2">
                                 <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ brands( 'twitter' ) } /></li>
                                 <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ brands( 'discord' ) } /></li>
@@ -42,7 +42,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                             <div className="flex flex-col">
                                 <span className="text-medium">Supply</span>
                                 <span className="flex items-center">
-                                    {project.maxSupply}
+                                    {project.itemsAvaiable}
                                 </span>
                             </div>
                             <div className="flex flex-col">
@@ -51,7 +51,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-medium">Mint Date</span>
-                                <span><Moment format='D MMM'>{project.nftsMinted?.at(0).blockTime}</Moment></span>
+                                <span><Moment format='D MMM'>{project.nfts?.at(0).blockTime}</Moment></span>
                             </div>
                         </div>
                     </div>

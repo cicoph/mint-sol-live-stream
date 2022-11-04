@@ -1,16 +1,16 @@
 interface Project {
     _id: Object;
     symbol?: string;
-    cmAddress: string;
+    candyMachineId: string;
     creator?: [any];
     latestUpdate: Date;
     description?: string;
     name?: string;
-    nftsMinted?: [any];
+    nfts?: [any];
     image?: string;
     platform?: string;
     price?: number;
-    maxSupply?: number;
+    itemsAvaiable?: number;
     itemsMinted?: number;
 }
 
