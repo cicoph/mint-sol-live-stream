@@ -12,6 +12,7 @@ interface Project {
     price?: number;
     itemsAvaiable?: number;
     itemsMinted?: number;
+    externalUrl: [string];
 }
 
 export default Project;

@@ -10,6 +10,11 @@ interface Props {
 
 }
 const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
+    const icons: any[] = [
+        solid( 'earth' ),
+        brands('twitter'),
+        brands('discord' ),
+    ]
     return( 
         <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md">
             <div className="flex items-center justify-between mb-4">
@@ -24,11 +29,12 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                         <div className="w-full">
                             <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
                             <span className="truncate w-15">{project.candyMachineId}</span>
-                            <ul className="ml-auto flex items-center mt-2">
-                                <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ brands( 'twitter' ) } /></li>
-                                <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ brands( 'discord' ) } /></li>
-                                <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><FontAwesomeIcon icon={ solid( 'earth' ) } /></li>
-                            </ul>
+                            { project.externalUrl.length > 0 &&
+                                <ul className="ml-auto flex items-center mt-2">
+                                { project.externalUrl.map( ( url, i ) => 
+                                    <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><a href={url} target="_blank" title=""><FontAwesomeIcon icon={ icons[i] } /></a></li>
+                                )}
+                            </ul> }
                         </div>
                     </div>
                     <div className="w-full">
