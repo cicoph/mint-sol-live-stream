@@ -32,7 +32,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                             { project.externalUrl.length > 0 &&
                                 <ul className="ml-auto flex items-center mt-2">
                                 { project.externalUrl.map( ( url, i ) => 
-                                    <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><a href={url} target="_blank" title=""><FontAwesomeIcon icon={ icons[i] } /></a></li>
+                                    url !== '' && <li className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-800 text-white mr-2"><a href={url} target="_blank" title=""><FontAwesomeIcon icon={ icons[i] } /></a></li>
                                 )}
                             </ul> }
                         </div>
