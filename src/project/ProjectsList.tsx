@@ -25,7 +25,7 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
     const [ projects, setProjects ] = useState<Project[]>([]);
     const [ lastUpdate, setLastUpdate ] = useState<Date>( new Date )
 
-    const sortDescByMintNumber = ( a: Project, b: Project ) => sort ? a.nfts?.length - b.nfts?.length : b.nfts?.length - a.nfts?.length
+    const sortDescByMintNumber = ( a: Project, b: Project ) => sort ? b.nfts?.length - a.nfts?.length : a.nfts?.length - b.nfts?.length
 
     const getProjectsWithFetch = async ( timeFrame: number, sort: boolean ): Promise<void> => {
         const URL = `${SERVER_URL}/projects/${timeFrame}`
@@ -74,6 +74,13 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
                             className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
                             {/* <FontAwesomeIcon icon={icon({name: 'rotate-right', style: 'solid'})} /> */}
                             <FontAwesomeIcon icon={solid('arrow-rotate-right')} />
+                        </button>
+                        <button 
+                            onClick={ () => setSort( (prevSort) => !prevSort )}
+                            className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
+                            {/* <FontAwesomeIcon icon={icon({name: 'rotate-right', style: 'solid'})} /> */}
+                            { sort && <FontAwesomeIcon icon={solid('arrow-up-short-wide')} /> }
+                            { !sort && <FontAwesomeIcon icon={solid('arrow-down-wide-short')} /> }
                         </button>
                         <ButtonsTime onChosen={ (time: number) => setTimeFrame( time )} />
                     </div>
