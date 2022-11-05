@@ -27,7 +27,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                     <div className="flex items-center space-x-6 py-4 px-4 -mx-6 text-xs">
                         <img src={project.image || project.nfts?.at(0).image} alt="" width="60" height="60" className="flex-none rounded-md bg-slate-100" />
                         <div className="w-full">
-                            <h2 className="font-semibold text-slate-900 truncate">{project.symbol}</h2>
+                            <h2 className="font-semibold text-slate-900 truncate">{project.name} - {project.symbol} <span className="px-1.5 ring-1 ring-slate-200 rounded">{project.platform}</span></h2>
                             <span className="truncate w-15">{project.candyMachineId}</span>
                             { project.externalUrl.length > 0 &&
                                 <ul className="ml-auto flex items-center mt-2">

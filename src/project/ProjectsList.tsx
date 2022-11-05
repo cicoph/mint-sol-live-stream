@@ -63,7 +63,7 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
                 <h3 className="text-xl font-bold leading-none text-gray-900">
                     Top Mints
                 </h3>
-                <span className="font-regular text-xs text-cyan-500">
+                <span className="font-regular text-xs text-gray-500">
                     Last Update: <Moment format='HH:mm:ss'>{lastUpdate}</Moment>
                 </span>
             </div>
