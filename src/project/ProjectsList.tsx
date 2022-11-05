@@ -69,19 +69,20 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
             <div className="flow-root">
                 <div className="divide-y divide-gray-200">
                     <div className="flex -mx-6 border-y p-2 justify-between items-center">
-                        <button 
-                            onClick={() => getProjectsWithFetch( timeFrame, sort )}
-                            className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
-                            {/* <FontAwesomeIcon icon={icon({name: 'rotate-right', style: 'solid'})} /> */}
-                            <FontAwesomeIcon icon={solid('arrow-rotate-right')} />
-                        </button>
-                        <button 
-                            onClick={ () => setSort( (prevSort) => !prevSort )}
-                            className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
-                            {/* <FontAwesomeIcon icon={icon({name: 'rotate-right', style: 'solid'})} /> */}
-                            { sort && <FontAwesomeIcon icon={solid('arrow-up-short-wide')} /> }
-                            { !sort && <FontAwesomeIcon icon={solid('arrow-down-wide-short')} /> }
-                        </button>
+                        <div className="inline-flex" role="group">
+                            <button 
+                                onClick={() => getProjectsWithFetch( timeFrame, sort )}
+                                className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
+                                {/* <FontAwesomeIcon icon={icon({name: 'rotate-right', style: 'solid'})} /> */}
+                                <FontAwesomeIcon icon={solid('arrow-rotate-right')} />
+                            </button>
+                            <button 
+                                onClick={ () => setSort( (prevSort) => !prevSort )}
+                                className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
+                                { sort && <FontAwesomeIcon icon={solid('arrow-down-wide-short')} /> }
+                                { !sort && <FontAwesomeIcon icon={solid('arrow-up-short-wide')} /> }
+                            </button>
+                        </div>
                         <ButtonsTime onChosen={ (time: number) => setTimeFrame( time )} />
                     </div>
                     
