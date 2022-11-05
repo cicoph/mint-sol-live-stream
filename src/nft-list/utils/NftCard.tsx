@@ -5,7 +5,6 @@ import Moment from 'react-moment';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
-import { NONAME } from 'dns';
 
 interface Props {
     // style: CSSProperties;

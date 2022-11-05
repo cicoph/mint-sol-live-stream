@@ -6,8 +6,8 @@ import Moment from 'react-moment';
 
 import Project  from './utils/Project';
 import ProjectCard  from './utils/ProjectCard';
-import ButtonsTime, { OnChosenFunction } from './utils/ButtonsTime';
-import ProjectDetails from './ProjectDetails';
+import ButtonsTime from './utils/ButtonsTime';
+// import ProjectDetails from './ProjectDetails';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
@@ -21,14 +21,17 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
     const cachedCallback = useRef<NodeJS.Timer | null>(null);
 
     const [ timeFrame, setTimeFrame ] = useState<number>(5);
+    const [ sort, setSort ] = useState<boolean>( true )
     const [ projects, setProjects ] = useState<Project[]>([]);
     const [ lastUpdate, setLastUpdate ] = useState<Date>( new Date )
 
-    const getProjectsWithFetch = async ( timeFrame: number ): Promise<void> => {
+    const sortDescByMintNumber = ( a: Project, b: Project ) => sort ? a.nfts?.length - b.nfts?.length : b.nfts?.length - a.nfts?.length
+
+    const getProjectsWithFetch = async ( timeFrame: number, sort: boolean ): Promise<void> => {
         const URL = `${SERVER_URL}/projects/${timeFrame}`
         fetch( URL )
         .then( async (response) => await response.json())
-        .then( ( result: Project[] ) => setProjects( result ) )
+        .then( ( result: Project[] ) => setProjects( result.sort( sortDescByMintNumber ) ) )
         .catch((error) => {
             console.log(error)
         });
@@ -46,16 +49,12 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
     useEffect( () => setLastUpdate(new Date), [projects] )
 
     useEffect( () => {
-        getProjectsWithFetch( timeFrame )
-        cachedCallback.current = setInterval( () => getProjectsWithFetch( timeFrame ), 5 * 60 * 1000 )
+        getProjectsWithFetch( timeFrame, sort )
+        cachedCallback.current = setInterval( () => getProjectsWithFetch( timeFrame, sort ), 5 * 60 * 1000 )
         return () => {
             if( cachedCallback.current ) clearInterval( cachedCallback.current )
         }
-    }, [timeFrame]);
-
-    // const handleTimeFrame = (time: number) => {
-    //     setTimeFrame(time);
-    // }
+    }, [ timeFrame, sort ]);
     
     return (
         <section>
@@ -71,7 +70,7 @@ const ProjectsList : FunctionComponent<Props> = ( { projectSelected } ) => {
                 <div className="divide-y divide-gray-200">
                     <div className="flex -mx-6 border-y p-2 justify-between items-center">
                         <button 
-                            onClick={() => getProjectsWithFetch( timeFrame )}
+                            onClick={() => getProjectsWithFetch( timeFrame, sort )}
                             className="py-2 px-4 shadow-sm text-xs font-medium text-gray-900 bg-white rounded-sm hover:bg-gray-100">
                             {/* <FontAwesomeIcon icon={icon({name: 'rotate-right', style: 'solid'})} /> */}
                             <FontAwesomeIcon icon={solid('arrow-rotate-right')} />

@@ -6,7 +6,7 @@ interface Project {
     latestUpdate: Date;
     description?: string;
     name?: string;
-    nfts?: [any];
+    nfts: [any];
     image?: string;
     platform?: string;
     price?: number;
