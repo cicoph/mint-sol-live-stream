@@ -13,6 +13,7 @@ interface Project {
     itemsAvaiable?: number;
     itemsMinted?: number;
     externalUrl: [string];
+    goLiveDate: number;
 }
 
 export default Project;

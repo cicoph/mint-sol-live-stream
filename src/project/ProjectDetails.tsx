@@ -14,6 +14,7 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
         solid( 'earth' ),
         brands('twitter'),
         brands('discord' ),
+        solid( 'land-mine-on' )
     ]
     return( 
         <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md">
@@ -56,8 +57,8 @@ const ProjectDetails: FunctionComponent<Props> = ( { project } ) => {
                                 <span> {project.price} SOL </span>
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-medium">Mint Date</span>
-                                <span><Moment format='D MMM'>{project.nfts?.at(0).blockTime}</Moment></span>
+                                <span className="text-medium">Go Live</span>
+                                <span><Moment format='D MMM'>{project.goLiveDate}</Moment></span>
                             </div>
                         </div>
                     </div>
